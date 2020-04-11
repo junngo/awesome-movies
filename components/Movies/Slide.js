@@ -69,7 +69,7 @@ const Slide = ({ id, title, backgroundImage, votes, overview, poster }) => (
         <Content>
             <Poster url={apiImage(poster)} />
             <Data>
-                <Title>{title.length > 40 ? `${title.slice(0, 40)}...` : title}</Title>
+                <Title>{title.length > 20 ? `${title.slice(0, 20)}...` : title}</Title>
                 <Votes>⭐️ {votes} / 10</Votes>
                 <Overview>{overview.slice(0, 110)}...</Overview>
                 <TouchableOpacity>
