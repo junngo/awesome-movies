@@ -14,8 +14,10 @@ export default ({ navigation, route }) => {
     // console.log(route);
 
     useLayoutEffect(() => {
+        const name = getHeaderName(route);
+
         navigation.setOptions({
-            title: getHeaderName(route)
+            title: name
         });
     }, [route]);
 
