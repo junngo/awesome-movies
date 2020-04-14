@@ -2,10 +2,13 @@ import React from "react";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { apiImage } from "../../api";
 import { trimText } from "../../utils";
 import Poster from "../Poster";
 import Votes from "../Votes";
+
 
 const Container = styled.View`
     height: 100%;
@@ -60,26 +63,39 @@ const ButtonText = styled.Text`
 `;
 
 
-const Slide = ({ id, title, backgroundImage, votes, overview, poster }) => (
-    <Container>
+const Slide = ({ id, title, backgroundImage, votes, overview, poster }) => {
+    const navigation = useNavigation();
+    const goToDetail = () =>
+      navigation.navigate("Detail", {
+        id,
+        title,
+        backgroundImage,
+        votes,
+        overview,
+        poster
+      });
+
+    return (
+      <Container>
         <BG source={{ uri: apiImage(backgroundImage) }} />
         <Content>
-            <Poster url={poster} />
-            <Data>
-                <Title>{trimText(title, 40)}</Title>
-                <VotesContainer>
-                    <Votes votes={votes} />
-                </VotesContainer>
-                <Overview>{trimText(overview, 80)}</Overview>
-                <TouchableOpacity>
-                    <Button>
-                        <ButtonText>View details</ButtonText>
-                    </Button>
-                </TouchableOpacity>
-            </Data>
+          <Poster url={poster} />
+          <Data>
+            <Title>{trimText(title, 40)}</Title>
+            <VotesContainer>
+              <Votes votes={votes} />
+            </VotesContainer>
+            <Overview>{trimText(overview, 80)}</Overview>
+            <TouchableOpacity onPress={goToDetail}>
+              <Button>
+                <ButtonText>View details</ButtonText>
+              </Button>
+            </TouchableOpacity>
+          </Data>
         </Content>
-    </Container>
-);
+      </Container>
+    );
+};
 
 Slide.propTypes = {
     id: PropTypes.number.isRequired,
