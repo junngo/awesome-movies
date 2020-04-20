@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as WebBrowser from "expo-web-browser";
 import DetailPresenter from "./DetailPresenter";
 import { movieApi, tvApi } from "../../api";
 
@@ -44,5 +45,9 @@ export default ({
     navigation.setOptions({ title });
   });
 
-  return <DetailPresenter {...detail} />;
+  const openBrowser = async url => {
+    await WebBrowser.openBrowserAsync(url);
+  };
+
+  return <DetailPresenter openBrowser={openBrowser} {...detail} />;
 };
